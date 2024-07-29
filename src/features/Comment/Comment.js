@@ -1,6 +1,6 @@
 import React from "react";
 import { format, fromUnixTime } from "date-fns";
-import Markdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 
 function Comment(props) {
   const { comment } = props;
@@ -8,7 +8,7 @@ function Comment(props) {
   return (
     <div>
       <p>{comment.author}</p>
-      <p>{}</p>
+      <ReactMarkdown source={comment.body} />
     </div>
   );
 }
