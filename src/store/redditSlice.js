@@ -52,7 +52,7 @@ const initialState = {
   error: false,
   isLoading: false,
   searchTerm: "",
-  selectedSubreddit: "/r/Home",
+  selectedSubreddit: "/",
 };
 
 const redditSlice = createSlice({
@@ -62,10 +62,13 @@ const redditSlice = createSlice({
     setSearchTerm(state, action) {
       state.searchTerm = action.payload;
     },
-
     setUpsVotes(state, action) {
       const { up, index } = action.payload;
       state.posts[index].ups = up;
+    },
+    setSelectedSubreddit(state, action) {
+      state.selectedSubreddit = action.payload;
+      state.searchTerm = '';
     },
   },
 
@@ -128,6 +131,6 @@ export const selectAllStates = (state) => state.reddit;
 export const selectSelectedSubReddit = (state) =>
   state.reddit.selectedSubreddit;
 
-export const { setSearchTerm, setUpsVotes } = redditSlice.actions;
+export const { setSearchTerm, setUpsVotes, setSelectedSubreddit } = redditSlice.actions;
 
 export default redditSlice.reducer;

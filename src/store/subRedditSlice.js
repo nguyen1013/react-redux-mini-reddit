@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSubredits } from "../api/reddit";
 
-export const loadSubReddit = createAsyncThunk(
+export const loadSubReddits = createAsyncThunk(
   "subReddit/getsubReddit",
   async () => {
     const subReddit = await getSubredits();
@@ -21,22 +21,22 @@ const subRedditlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loadSubReddit.pending, (state) => {
+      .addCase(loadSubReddits.pending, (state) => {
         state.isLoading = true;
         state.error = false;
       })
-      .addCase(loadSubReddit.fulfilled, (state, action) => {
+      .addCase(loadSubReddits.fulfilled, (state, action) => {
         state.subReddit = action.payload;
         state.isLoading = false;
         state.error = false;
       })
-      .addCase(loadSubReddit.rejected, (state) => {
+      .addCase(loadSubReddits.rejected, (state) => {
         state.isLoading = false;
         state.error = true;
       });
   },
 });
 
-export const selectSubReddit = (state) => state.subReddit.subReddit;
-export const selectAllStatesSubReddit = (state) => state.subReddit;
+export const selectSubReddits = (state) => state.subReddit.subReddit;
+export const selectAllStatesSubReddits = (state) => state.subReddit;
 export default subRedditlice.reducer;

@@ -26,13 +26,6 @@
   color: var(--color-branding);
 }
 
-.avatar {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  margin-right: var(--spacing-1);
-}
-
 .avatarProfileImage {
   width: 2rem !important;
   height: 2rem !important;

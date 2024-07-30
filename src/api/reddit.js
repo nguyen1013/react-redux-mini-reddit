@@ -9,11 +9,10 @@ export const getSubreditPosts = async (subreddit) => {
 };
 
 export const getSubredits = async () => {
-  fetch(`${API_URL}/subreddits.json?raw_json=1`)
-    .then((response) => response.json)
-    .then((json) => {
-      return json.data.children.map((post) => post.data);
-    });
+  const response = await fetch(`${API_URL}/subreddits.json`);
+  const json = await response.json();
+  const data = json.data.children.map((subreddit) => subreddit.data)
+  return data;
 };
 
 export const getPostComments = async (permalink) => {

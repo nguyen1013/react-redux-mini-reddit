@@ -12,7 +12,7 @@ function Comment(props) {
         <Avatar name={comment.author} className={styles.avatarProfileImage} />
         <p className={styles.commentAuthor} >{comment.author}</p>
         <p className={styles.commentCreatedTime}>
-        {formatDistanceToNow(new Date(comment.created_utc * 1000), { addSuffix: true })}
+        {comment.created_utc ? formatDistanceToNow(new Date(comment.created_utc * 1000), { addSuffix: true }) : null}         
         </p>        
       </div>
       <ReactMarkdown>{comment.body}</ReactMarkdown>

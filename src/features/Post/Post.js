@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import Skeleton from 'react-loading-skeleton';
+import Skeleton from "react-loading-skeleton";
+import { AnimatedList } from "react-animated-list";
+import CommentLoading from "../Comment/CommentLoading";
+import getRandomNumber from "../../utils/getRandomNumber";
 import {
   TiArrowUpOutline,
   TiArrowUpThick,
@@ -11,16 +14,14 @@ import { formatDistanceToNow } from "date-fns";
 import shortenNumber from "../../utils/shortenNumber";
 import Card from "../../components/Cards/Card";
 import Comment from "../Comment/Comment";
-// import defaultAvatar from "./avatar_default_5.png";
-import Avatar from 'react-avatar';
+import Avatar from "react-avatar";
 import styles from "./Post.module.css";
 import { setUpsVotes } from "../../store/redditSlice";
-import { useDispatch } from "react-redux";  
+import { useDispatch } from "react-redux";
 
 function Post(props) {
   const [voteValue, setVoteValue] = useState(0);
   const { post, onToggleComments, index } = props;
-  // const avatar = defaultAvatar;
   const dispatch = useDispatch();
 
   const onHandleVote = (newValue, index) => {
@@ -28,22 +29,22 @@ function Post(props) {
     if (voteValue === 0) {
       if (newValue === 1) {
         setVoteValue(1);
-        up = post.ups + 1
-        dispatch(setUpsVotes({up, index}));
+        up = post.ups + 1;
+        dispatch(setUpsVotes({ up, index }));
       }
       if (newValue === -1) {
         setVoteValue(-1);
-        up = post.ups - 1
-        dispatch(setUpsVotes({up, index}));
+        up = post.ups - 1;
+        dispatch(setUpsVotes({ up, index }));
       }
     } else if (voteValue === 1) {
       setVoteValue(0);
-      up = post.ups - 1
-      dispatch(setUpsVotes({up, index}));
+      up = post.ups - 1;
+      dispatch(setUpsVotes({ up, index }));
     } else if (voteValue === -1) {
       setVoteValue(0);
-      up = post.ups + 1
-      dispatch(setUpsVotes({up, index}));
+      up = post.ups + 1;
+      dispatch(setUpsVotes({ up, index }));
     }
   };
 
@@ -83,10 +84,9 @@ function Post(props) {
     if (post.loadingComments) {
       return (
         <div>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
+          <AnimatedList animation="zoom">
+            {Array(getRandomNumber(1,5)).fill(<CommentLoading />)}
+          </AnimatedList>
         </div>
       );
     }
@@ -152,11 +152,17 @@ function Post(props) {
 
             <div className={styles.postDetails}>
               <span className={styles.authorUsername}>
-                <Avatar name={post.author} className={styles.avatarProfileImage} />
+                <Avatar
+                  name={post.author}
+                  className={styles.avatarProfileImage}
+                />
                 {/* <img src={avatar} alt="avatar" className={styles.avatar} /> */}
                 {post.author}&nbsp;&nbsp;
                 <span className={styles.dateOfPost}>
-                &#x2022;&nbsp;{formatDistanceToNow(new Date(post.created_utc * 1000), { addSuffix: true })}
+                  &#x2022;&nbsp;
+                  {formatDistanceToNow(new Date(post.created_utc * 1000), {
+                    addSuffix: true,
+                  })}
                 </span>
               </span>
 
