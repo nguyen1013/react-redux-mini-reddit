@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import { AnimatedList } from "react-animated-list";
 import CommentLoading from "../Comment/CommentLoading";
 import getRandomNumber from "../../utils/getRandomNumber";
