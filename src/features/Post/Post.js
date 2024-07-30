@@ -7,44 +7,43 @@ import {
   TiArrowDownThick,
   TiMessage,
 } from "react-icons/ti";
-import { format, fromUnixTime } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import shortenNumber from "../../utils/shortenNumber";
 import Card from "../../components/Cards/Card";
 import Comment from "../Comment/Comment";
-import defaultAvatar from "./avatar_default_5.png";
+// import defaultAvatar from "./avatar_default_5.png";
+import Avatar from 'react-avatar';
 import styles from "./Post.module.css";
+import { setUpsVotes } from "../../store/redditSlice";
+import { useDispatch } from "react-redux";  
 
 function Post(props) {
   const [voteValue, setVoteValue] = useState(0);
-  const { post, onToggleComments } = props;
-  const avatar = defaultAvatar;
+  const { post, onToggleComments, index } = props;
+  // const avatar = defaultAvatar;
+  const dispatch = useDispatch();
 
-  const onHandleVote = (newValue) => {
+  const onHandleVote = (newValue, index) => {
+    let up;
     if (voteValue === 0) {
       if (newValue === 1) {
         setVoteValue(1);
-        post.ups += 1;
+        up = post.ups + 1
+        dispatch(setUpsVotes({up, index}));
       }
       if (newValue === -1) {
         setVoteValue(-1);
-        post.ups -= 1;
+        up = post.ups - 1
+        dispatch(setUpsVotes({up, index}));
       }
     } else if (voteValue === 1) {
       setVoteValue(0);
-      if (newValue === 1) {
-        post.ups -= 1;
-      }
-      if (newValue === -1) {
-        post.ups -= 1;
-      }
+      up = post.ups - 1
+      dispatch(setUpsVotes({up, index}));
     } else if (voteValue === -1) {
       setVoteValue(0);
-      if (newValue === 1) {
-        post.ups += 1;
-      }
-      if (newValue === -1) {
-        post.ups += 1;
-      }
+      up = post.ups + 1
+      dispatch(setUpsVotes({up, index}));
     }
   };
 
@@ -80,6 +79,7 @@ function Post(props) {
         </div>
       );
     }
+
     if (post.loadingComments) {
       return (
         <div>
@@ -90,17 +90,19 @@ function Post(props) {
         </div>
       );
     }
+
     if (post.showingComments) {
       return (
         <div>
           {post.comments.map((comment) => (
-            <Comment key={comment.id} comment={comment} />
+            <Comment comment={comment} key={comment.id} />
           ))}
         </div>
       );
     }
+
     return null;
-  }
+  };
 
   return (
     <article key={post.id}>
@@ -110,7 +112,7 @@ function Post(props) {
             <button
               type="button"
               aria-label="Up vote"
-              onClick={() => onHandleVote(1)}
+              onClick={() => onHandleVote(1, index)}
               className={`${styles.iconActionButton} ${styles.upVote} ${
                 voteValue === 1 && styles.active
               }`}
@@ -125,7 +127,7 @@ function Post(props) {
             <button
               type="button"
               aria-label="Down vote"
-              onClick={() => onHandleVote(-1)}
+              onClick={() => onHandleVote(-1, index)}
               className={`${styles.iconActionButton} ${styles.downVote} ${
                 voteValue === -1 && styles.active
               }`}
@@ -150,10 +152,11 @@ function Post(props) {
 
             <div className={styles.postDetails}>
               <span className={styles.authorUsername}>
-                <img src={avatar} alt="avatar" className={styles.avatar} />
+                <Avatar name={post.author} className={styles.avatarProfileImage} />
+                {/* <img src={avatar} alt="avatar" className={styles.avatar} /> */}
                 {post.author}&nbsp;&nbsp;
                 <span className={styles.dateOfPost}>
-                &#x2022;&nbsp;{format(fromUnixTime(post.created_utc), "dd MMM yyyy")}
+                &#x2022;&nbsp;{formatDistanceToNow(new Date(post.created_utc * 1000), { addSuffix: true })}
                 </span>
               </span>
 
@@ -171,7 +174,7 @@ function Post(props) {
                 <span>{post.num_comments}</span>
               </span>
             </div>
-              {renderComments()}
+            {renderComments()}
           </div>
         </div>
       </Card>

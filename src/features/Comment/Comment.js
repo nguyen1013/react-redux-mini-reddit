@@ -1,14 +1,21 @@
 import React from "react";
-import { format, fromUnixTime } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import ReactMarkdown from "react-markdown";
+import Avatar from 'react-avatar';
+import styles from "./Comment.module.css";
 
 function Comment(props) {
   const { comment } = props;
-
   return (
-    <div>
-      <p>{comment.author}</p>
-      <ReactMarkdown source={comment.body} />
+    <div className={styles.comment}>
+      <div className={styles.commentMetadata}>
+        <Avatar name={comment.author} className={styles.avatarProfileImage} />
+        <p className={styles.commentAuthor} >{comment.author}</p>
+        <p className={styles.commentCreatedTime}>
+        {formatDistanceToNow(new Date(comment.created_utc * 1000), { addSuffix: true })}
+        </p>        
+      </div>
+      <ReactMarkdown>{comment.body}</ReactMarkdown>
     </div>
   );
 }

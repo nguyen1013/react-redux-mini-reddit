@@ -4,8 +4,7 @@ export const getSubreditPosts = async (subreddit) => {
   const response = await fetch(`${API_URL}${subreddit}.json?raw_json=1`);
   const json = await response.json();
   const data = json.data.children.map((post) => post.data);
-  // console.log(json.data.children)
-  console.log(`fetch getSubreditPosts: ${subreddit}`)
+  console.log(`fetch getSubreditPosts: ${subreddit}`);
   return data;
 };
 
@@ -18,12 +17,10 @@ export const getSubredits = async () => {
 };
 
 export const getPostComments = async (permalink) => {
-  fetch(`${API_URL}${permalink}.json?raw_json=1`)
-    .then((response) => response.json)
-    .then((json) => {
-      console.log(`fetch getPostComments`)
-      return json[1].data.children.map((post) => post.data);
-    });
+  const response = await fetch(`${API_URL}${permalink}.json?raw_json=1`);
+  const json = await response.json();
+  const data = json[1].data.children.map((post) => post.data);
+  return data;
 };
 
 export const getSearchResults = async (query) => {
