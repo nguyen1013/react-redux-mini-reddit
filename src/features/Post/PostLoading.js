@@ -18,7 +18,7 @@ function PostLoading() {
           className={`${stylesPost.iconActionButton} ${stylesPost.upVote}`}
           aria-label="Up vote"
         >
-          <TiArrowUpOutline className={stylesPost.iconAction} />
+          {/* <TiArrowUpOutline className={stylesPost.iconAction} /> */}
         </button>
         <Skeleton
           className={`${stylesPost.postVotesValue} ${stylesPostLoading.postVotesValueLoading}`}
@@ -28,7 +28,7 @@ function PostLoading() {
           className={`${stylesPost.iconActionButton} ${stylesPost.downVote}`}
           aria-label="Down vote"
         >
-          <TiArrowDownOutline className={stylesPost.iconAction} />
+          {/* <TiArrowDownOutline className={stylesPost.iconAction} /> */}
         </button>
       </div>
 
@@ -54,7 +54,7 @@ function PostLoading() {
               className={`${stylesPost.iconActionButton}`}
               aria-label="Show comments"
             >
-              <TiMessage className={stylesPost.iconAction} />
+              {/* <TiMessage className={stylesPost.iconAction} /> */}
             </button>
             <Skeleton width={getRandomNumber(10, 50)} />
           </span>

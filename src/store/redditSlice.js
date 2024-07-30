@@ -25,7 +25,7 @@ export const loadPosts = createAsyncThunk(
 );
 
 export const loadSearchResults = createAsyncThunk(
-  "posts/getSearchResults",
+  "posts/getSearch",
   async (query) => {
     const posts = await getSearchResults(query);
     const postsWithMetadata = posts.map((post) => ({
@@ -48,11 +48,11 @@ export const loadComments = createAsyncThunk(
 );
 
 const initialState = {
+  searchTerm: "",
   posts: [],
   error: false,
-  isLoading: false,
-  searchTerm: "",
-  selectedSubreddit: "/",
+  isLoading: false,  
+  selectedSubreddit: "/r/Home",
 };
 
 const redditSlice = createSlice({
@@ -126,7 +126,7 @@ const redditSlice = createSlice({
 });
 
 export const selectPosts = (state) => state.reddit.posts;
-const selectSearchTerm = (state) => state.reddit.searchTerm;
+export const selectSearchTerm = (state) => state.reddit.searchTerm;
 export const selectAllStates = (state) => state.reddit;
 export const selectSelectedSubReddit = (state) =>
   state.reddit.selectedSubreddit;

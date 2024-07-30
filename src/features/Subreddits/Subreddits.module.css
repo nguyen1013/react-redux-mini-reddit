@@ -1,4 +1,12 @@
+.stickyContainer {
+  position: sticky !important;
+  top: 80px; 
+  height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
 .subredditCard {
+  width: 100%;
   padding-right: var(--spacing-2);
 }
 
@@ -51,3 +59,4 @@
   border-radius: 50%;
   margin-right: var(--spacing-1);
 }
+

@@ -4,21 +4,35 @@ import { AnimatedList } from "react-animated-list";
 import Post from "../Post/Post";
 import PostLoading from "../Post/PostLoading";
 import getRandomNumber from "../../utils/getRandomNumber";
+import Avatar from "react-avatar";
 import {
   loadPosts,
   loadComments,
-  loadSearchResults,
   selectPosts,
-  selectSearchTerm,
   selectAllStates,
   setSearchTerm,
 } from "../../store/redditSlice";
+import { selectSubReddits } from "../../store/subRedditSlice";
+import styles from "./Home.module.css";
+import splitName from "../../utils/splitName";
 
 function Home() {
   const reddit = useSelector(selectAllStates);
   const { isLoading, error, searchTerm, selectedSubreddit } = reddit;
   const loadedPosts = useSelector(selectPosts);
   const dispatch = useDispatch();
+
+  const subRedditName =
+    selectedSubreddit === "/" ? "Home" : splitName(selectedSubreddit);
+  const subReddits = useSelector(selectSubReddits);
+  let currentSubredditIcon = null;
+
+  const currentSubreddit = subReddits.find(
+    (subReddit) => subReddit.url === selectedSubreddit
+  );
+  if (currentSubreddit !== undefined) {
+    currentSubredditIcon = currentSubreddit.icon_img;
+  }
 
   useEffect(() => {
     dispatch(loadPosts(selectedSubreddit));
@@ -39,9 +53,9 @@ function Home() {
     );
   }
 
-  if (error) {  
+  if (error) {
     return (
-      <div className="error">
+      <div className={styles.error}>
         <h2>Failed to load posts.</h2>
         <button
           type="button"
@@ -53,9 +67,9 @@ function Home() {
     );
   }
 
-  if (loadedPosts.length === 0) { 
+  if (loadedPosts.length === 0) {
     return (
-      <div className="error">
+      <div className={styles.error}>
         <h2>No posts matching "{searchTerm}"</h2>
         <button type="button" onClick={() => dispatch(setSearchTerm(""))}>
           Go back
@@ -66,7 +80,18 @@ function Home() {
 
   return (
     <>
-      <h2>{selectedSubreddit}</h2>
+      <div className={styles.subredditHeader}>
+        {currentSubredditIcon ? (
+          <img
+            src={currentSubredditIcon}
+            alt={selectedSubreddit}
+            className={styles.subredditIcon}
+          />
+        ) : (
+          <Avatar name={subRedditName} className={styles.avatarProfileImage} />
+        )}
+        <h2 className={styles.subredditTitle}>{selectedSubreddit}</h2>
+      </div>
       {loadedPosts.map((post, index) => {
         return (
           <Post

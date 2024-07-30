@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaReddit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../../store/redditSlice";
+import { setSearchTerm, loadSearchResults } from "../../store/redditSlice";
+import styles from "./Header.module.css";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,24 +13,32 @@ function Header() {
     setSearchQuery(e.target.value);
   };
 
-  useEffect(() => {
-    setSearchTerm(searchQuery);
-  }, [searchQuery]);
-
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    // dispatch(setSearchTerm(searchQuery));
+    e.preventDefault();    
+    dispatch(setSearchTerm(searchQuery));
+    dispatch(loadSearchResults(searchQuery));
   };
+
+  /* Option 2 handleSubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch((dispatch, getState) => {
+      dispatch(setSearchTerm(searchQuery));
+      const updatedQuery = selectSearchTerm(getState());
+      dispatch(loadSearchResults(updatedQuery));
+    });
+  };  
+  */
 
   return (
     <header>
-      <div>
-        <FaReddit />
-        <p>
-          Reddit<span>Minimal</span>
+      <div className={styles.logo}>
+        <FaReddit className={styles.logoIcon} />
+        <p className={styles.logoText}>
+        <span>mini&nbsp;</span>Reddit
         </p>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.search} onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Search"

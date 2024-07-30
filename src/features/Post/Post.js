@@ -85,7 +85,11 @@ function Post(props) {
       return (
         <div>
           <AnimatedList animation="zoom">
-            {Array(getRandomNumber(1,5)).fill(<CommentLoading />)}
+            {Array(getRandomNumber(1, 5))
+              .fill()
+              .map((_, index) => (
+                <CommentLoading key={index} />
+              ))}
           </AnimatedList>
         </div>
       );
@@ -94,8 +98,8 @@ function Post(props) {
     if (post.showingComments) {
       return (
         <div>
-          {post.comments.map((comment) => (
-            <Comment comment={comment} key={comment.id} />
+          {post.comments.map((comment, index) => (
+            <Comment comment={comment} key={index} />
           ))}
         </div>
       );

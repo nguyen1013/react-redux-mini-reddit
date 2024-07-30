@@ -6,6 +6,7 @@
   padding: var(--spacing-3);
   transition: box-shadow 0.1s ease-in;
   color: var(--color-text-secondary);
+  width: 100%;
 }
 
 .card:hover {
