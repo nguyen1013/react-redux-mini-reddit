@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createSelector,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getSubreditPosts,
   getSearchResults,
@@ -51,7 +47,7 @@ const initialState = {
   searchTerm: "",
   posts: [],
   error: false,
-  isLoading: false,  
+  isLoading: false,
   selectedSubreddit: "/r/Home",
 };
 
@@ -68,7 +64,7 @@ const redditSlice = createSlice({
     },
     setSelectedSubreddit(state, action) {
       state.selectedSubreddit = action.payload;
-      state.searchTerm = '';
+      state.searchTerm = "";
     },
   },
 
@@ -131,6 +127,7 @@ export const selectAllStates = (state) => state.reddit;
 export const selectSelectedSubReddit = (state) =>
   state.reddit.selectedSubreddit;
 
-export const { setSearchTerm, setUpsVotes, setSelectedSubreddit } = redditSlice.actions;
+export const { setSearchTerm, setUpsVotes, setSelectedSubreddit } =
+  redditSlice.actions;
 
 export default redditSlice.reducer;
