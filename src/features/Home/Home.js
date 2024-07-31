@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AnimatedList } from "react-animated-list";
+// import { AnimatedList } from "react-animated-list";
+import { Zoom } from "react-awesome-reveal";
+
 import Post from "../Post/Post";
 import PostLoading from "../Post/PostLoading";
 import getRandomNumber from "../../utils/getRandomNumber";
@@ -47,9 +49,11 @@ function Home() {
 
   if (isLoading) {
     return (
-      <AnimatedList animation="zoom">
-        {Array(getRandomNumber(3, 10)).fill(<PostLoading />)}
-      </AnimatedList>
+      <Zoom>
+        {Array(getRandomNumber(3, 10)).fill().map((_, index) => (
+          <PostLoading key={index} />
+        ))}
+      </Zoom>
     );
   }
 
@@ -90,8 +94,9 @@ function Home() {
         ) : (
           <Avatar name={subRedditName} className={styles.avatarProfileImage} />
         )}
-        <h2 className={styles.subredditTitle}>{selectedSubreddit}</h2>
+        <h3 className={styles.subredditTitle}>{selectedSubreddit}</h3>
       </div>
+  
       {loadedPosts.map((post, index) => {
         return (
           <Post

@@ -8,7 +8,6 @@ header .logo {
 
 .logoText {
   font-size: 1.5rem;
-  /* color: var(--color-text-secondary); */
   color: var(--color-logo);
 }
 
@@ -20,6 +19,10 @@ header {
   box-shadow: var(--box-shadow);
   height: 64px;
   padding: 0 var(--spacing-5);
+}
+
+.logoIcon {
+  cursor: pointer;
 }
 
 header .logoIcon {
@@ -36,6 +39,8 @@ header span {
 .search {
   display: flex;
   align-items: center;
+  grid-column: 2/4;
+  width: 50%;
 }
 
 .search input {
@@ -53,4 +58,19 @@ header span {
   cursor: pointer;
   color: var(--color-text-secondary);
   font-size: 1.5rem;
+}
+
+@media (max-width: 700px) {
+  .logoText {
+    display: none;
+  }
+
+  header {
+    padding: 0 var(--spacing-2);
+  }
+
+  header .logo {
+    justify-self: flex-end;
+  }
+
 }

@@ -21,7 +21,6 @@ export default splitName;
 export function splitUserName(input) {
 
   const parts = input.split(/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/);
-  console.log(parts)
   
   // Join the parts with spaces, trim any extra whitespace, and convert to lowercase
   return parts.join(' ').trim();

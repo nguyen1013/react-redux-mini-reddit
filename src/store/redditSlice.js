@@ -44,11 +44,11 @@ export const loadComments = createAsyncThunk(
 );
 
 const initialState = {
-  searchTerm: "",
-  posts: [],
+  searchTerm: "",  
   error: false,
   isLoading: false,
-  selectedSubreddit: "/r/Home",
+  selectedSubreddit: "/r/popular",
+  posts: [],
 };
 
 const redditSlice = createSlice({

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { AnimatedList } from "react-animated-list";
+// import { AnimatedList } from "react-animated-list";
+import { Zoom } from "react-awesome-reveal";
 import CommentLoading from "../Comment/CommentLoading";
 import getRandomNumber from "../../utils/getRandomNumber";
+import ReactMarkdown from "react-markdown";
 import {
   TiArrowUpOutline,
   TiArrowUpThick,
@@ -22,6 +24,26 @@ function Post(props) {
   const [voteValue, setVoteValue] = useState(0);
   const { post, onToggleComments, index } = props;
   const dispatch = useDispatch();
+  const images = []
+
+  if (post.url.includes("jpg") || post.url.includes("jpeg")) {
+    images.push(post.url)
+  }
+
+  if (post.media_metadata) {
+    for (const key in post.media_metadata) {
+      if (post.media_metadata[key].s.u.includes("jpg") || post.media_metadata[key].s.u.includes("jpeg")) {
+        images.push(post.media_metadata[key].p[3].u)
+      }
+    }
+  }
+
+  if (post.preview) {
+    for (let i = post.preview.images[0].resolutions.length -1; i >=0; i--) {
+        images.push(post.preview.images[0].resolutions[i].url)
+        break;
+    }
+  }
 
   const onHandleVote = (newValue, index) => {
     let up;
@@ -83,13 +105,13 @@ function Post(props) {
     if (post.loadingComments) {
       return (
         <div>
-          <AnimatedList animation="zoom">
+          <Zoom>
             {Array(getRandomNumber(1, 5))
               .fill()
               .map((_, index) => (
                 <CommentLoading key={index} />
               ))}
-          </AnimatedList>
+          </Zoom>
         </div>
       );
     }
@@ -97,6 +119,7 @@ function Post(props) {
     if (post.showingComments) {
       return (
         <div>
+          <ReactMarkdown>{post.selftext}</ReactMarkdown>
           {post.comments.map((comment, index) => (
             <Comment comment={comment} key={index} />
           ))}
@@ -141,11 +164,11 @@ function Post(props) {
 
           <div className={styles.postContainer}>
             <p className={styles.postTitle}>{post.title}</p>
-            {post.url.includes("jpeg") ? (
+            {images.length ? (
               <div className={styles.postImageContainer}>
                 {
                   <img
-                    src={post.url}
+                    src={images[0]}
                     alt="post-img"
                     className={styles.postImage}
                   />

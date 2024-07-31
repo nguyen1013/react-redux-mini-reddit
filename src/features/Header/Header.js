@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { FaReddit } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { setSearchTerm, loadSearchResults } from "../../store/redditSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTerm, loadSearchResults, setSelectedSubreddit } from "../../store/redditSlice";
+import { loadPosts } from "../../store/redditSlice";
 import styles from "./Header.module.css";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
+  const selectedSubreddit = useSelector((state) => state.reddit.selectedSubreddit);
+
+  const handleClick= (e) => { 
+    dispatch(setSelectedSubreddit('/r/popular/best'));
+    dispatch(loadPosts(selectedSubreddit));
+  };
 
   const handleOnChange = (e) => {
     setSearchQuery(e.target.value);
@@ -33,7 +40,7 @@ function Header() {
   return (
     <header>
       <div className={styles.logo}>
-        <FaReddit className={styles.logoIcon} />
+        <FaReddit onClick={handleClick} className={styles.logoIcon} />
         <p className={styles.logoText}>
         <span>mini&nbsp;</span>Reddit
         </p>
@@ -43,6 +50,7 @@ function Header() {
           type="text"
           placeholder="Search"
           value={searchQuery}
+          name="search"
           onChange={handleOnChange}
           aria-label="Search posts"
         />
