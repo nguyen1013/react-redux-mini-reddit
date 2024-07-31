@@ -1,3 +1,8 @@
+# About
+This project is to built a web application for creating a mini Reddit webpage by using  React and Redux. Reddit is a website where people share links to articles, media and other things on the web. The Reddit API provides data which you will integrate into your application. The application will allow users to view and search posts and comments provided by the API.
+
+For this project, I use the [Reddit JSON API](https://github.com/reddit-archive/reddit/wiki/JSON)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
