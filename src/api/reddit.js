@@ -1,4 +1,4 @@
-export const API_URL = "http://www.reddit.com";
+export const API_URL = "https://www.reddit.com";
 
 export const getSubreditPosts = async (subreddit) => {
   const response = await fetch(`${API_URL}${subreddit}.json?raw_json=1`);
