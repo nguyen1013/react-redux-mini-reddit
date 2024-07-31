@@ -3,6 +3,8 @@ This project is to built a web application for creating a mini Reddit webpage by
 
 For this project, I use the [Reddit JSON API](https://github.com/reddit-archive/reddit/wiki/JSON)
 
+The deployed application is here: [https://reddit-minimal-e2301514.netlify.app/](https://reddit-minimal-e2301514.netlify.app/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
