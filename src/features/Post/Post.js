@@ -30,20 +30,33 @@ function Post(props) {
     images.push(post.url)
   }
 
+
+
   if (post.media_metadata) {
-    for (const key in post.media_metadata) {
-      if (post.media_metadata[key].s.u.includes("jpg") || post.media_metadata[key].s.u.includes("jpeg")) {
-        images.push(post.media_metadata[key].p[3].u)
+    const metadataImages = post.media_metadata;
+    if (metadataImages) {
+      for (const i in metadataImages) {
+        const imageUrl = metadataImages[i].p.find((image) => image.x === 640);
+        if (imageUrl) {
+          images.push(imageUrl.u);
+        }
       }
     }
   }
 
   if (post.preview) {
-    for (let i = post.preview.images[0].resolutions.length -1; i >=0; i--) {
-        images.push(post.preview.images[0].resolutions[i].url)
-        break;
+    const previewImages = post.preview.images[1];
+    if (previewImages) {
+      for (const i in previewImages) {
+        const imageUrl = previewImages[i].p.find((image) => image.x === 640);
+        if (imageUrl) {
+          images.push(imageUrl.u);
+        }
+      }
     }
   }
+
+  // console.log(index, images);
 
   const onHandleVote = (newValue, index) => {
     let up;
