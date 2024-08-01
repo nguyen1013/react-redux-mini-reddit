@@ -24,6 +24,7 @@ function Header() {
     e.preventDefault();    
     dispatch(setSearchTerm(searchQuery));
     dispatch(loadSearchResults(searchQuery));
+    setSearchQuery("");
   };
 
   /* Option 2 handleSubmit

@@ -26,13 +26,6 @@ export const getSearchResults = async (query) => {
   const response = await fetch(`${API_URL}/search/.json?q=${query}`);
   const json = await response.json();
   const data = json.data.children.map((post) => post.data);
-  // console.log(data[0])
-  // console.log(`fetch search: ${query}`);
   return data;
 };
 
-// fetch(`${API_URL}/search/.json?q=${query}type=link.json&raw_json=1`, {
-//   mode: "no-cors",
-// })
-
-// http://www.reddit.com/r/Home/comments/1eendab/drip_coming_from_shower_head/.json

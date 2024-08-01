@@ -1,5 +1,4 @@
 // This function is to extract images from the JSON data of a Reddit post
-
 export default function addImagesFromJson(post) {
   const images = []
 

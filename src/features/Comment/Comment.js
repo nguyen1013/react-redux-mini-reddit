@@ -7,10 +7,13 @@ import { splitUserName } from "../../utils/splitName";
 
 function Comment(props) {
   const { comment } = props;
+
+  // Split the username to readable name for Avatar component displaying
   let userName = comment.author;
   if (comment.author) {
     userName = splitUserName(comment.author);
   }
+
   return (
     <div className={styles.comment}>
       <div className={styles.commentMetadata}>

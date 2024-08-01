@@ -1,5 +1,4 @@
 // These function is to split reddit name to readable name for Avatar component displaying
-
 function splitName(input) {
   const match = input.match(/\/r\/(.+)/);
   if (!match) return null; // Return null if no match found
@@ -18,6 +17,6 @@ export function splitUserName(input) {
   const parts = input.split(/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/);  
   return parts.join(' ').trim();
 }
-// console.log(formatSubredditName('AskReddit')); // Output: "Ask Reddit"
+// console.log(formatSubredditName('Myname')); // Output: "My name"
 
 
