@@ -51,7 +51,7 @@ p {
 }
 
 .main-container .main-content {
-  width: 80%;
+  /* width: 80%; */
   padding: var(--spacing-3);
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@ article {
   width: 80%;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
   .subreddit-aside {
     position: fixed;
     left: -250px;

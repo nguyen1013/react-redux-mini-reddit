@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { AnimatedList } from "react-animated-list";
 import { Zoom } from "react-awesome-reveal";
 
 import Post from "../Post/Post";
@@ -23,23 +22,30 @@ function Home() {
   const { isLoading, error, searchTerm, selectedSubreddit } = reddit;
   const loadedPosts = useSelector(selectPosts);
   const dispatch = useDispatch();
+  const subReddits = useSelector(selectSubReddits);
 
+  // Get the current subreddit name
   const subRedditName =
     selectedSubreddit === "/" ? "Home" : splitName(selectedSubreddit);
-  const subReddits = useSelector(selectSubReddits);
-  let currentSubredditIcon = null;
 
+  // Get the icon of the current subreddit
+  let currentSubredditIcon = null;
   const currentSubreddit = subReddits.find(
     (subReddit) => subReddit.url === selectedSubreddit
   );
   if (currentSubreddit !== undefined) {
     currentSubredditIcon = currentSubreddit.icon_img;
   }
+  if (searchTerm) {
+    currentSubredditIcon = null;
+  }
 
+  // Load posts when the component mounts
   useEffect(() => {
     dispatch(loadPosts(selectedSubreddit));
   }, [dispatch, selectedSubreddit]);
 
+  // Load comments when the user clicks on the comments button
   const onToggleComments = (index) => {
     const getComments = (permalink) => {
       dispatch(loadComments({ index, permalink }));
@@ -47,12 +53,15 @@ function Home() {
     return getComments;
   };
 
+  // Display loading state
   if (isLoading) {
     return (
       <Zoom>
-        {Array(getRandomNumber(3, 10)).fill().map((_, index) => (
-          <PostLoading key={index} />
-        ))}
+        {Array(getRandomNumber(3, 10))
+          .fill()
+          .map((_, index) => (
+            <PostLoading key={index} />
+          ))}
       </Zoom>
     );
   }
@@ -91,12 +100,14 @@ function Home() {
             alt={selectedSubreddit}
             className={styles.subredditIcon}
           />
-        ) : (
+        ) : searchTerm ? null : (
           <Avatar name={subRedditName} className={styles.avatarProfileImage} />
         )}
-        <h3 className={styles.subredditTitle}>{selectedSubreddit}</h3>
+        <h3 className={styles.subredditTitle}>
+          {searchTerm ? `Search results: "${searchTerm}"` : selectedSubreddit}
+        </h3>
       </div>
-  
+
       {loadedPosts.map((post, index) => {
         return (
           <Post

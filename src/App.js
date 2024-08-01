@@ -6,10 +6,14 @@ import Subreddits from "./features/Subreddits/Subreddits";
 
 
 function App() {
-  const [isAsideVisible, setIsAsideVisible] = useState(window.innerWidth > 700);
+
+  // State to toggle the sidebar when width: 1000px
+  const [isAsideVisible, setIsAsideVisible] = useState(window.innerWidth > 1000);
+
+  // Toggle the sidebar
   useEffect(() => {
     const handleResize = () => {
-      setIsAsideVisible(window.innerWidth > 700);
+      setIsAsideVisible(window.innerWidth > 1000);
     };
 
     window.addEventListener('resize', handleResize);

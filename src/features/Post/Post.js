@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { AnimatedList } from "react-animated-list";
 import { Zoom } from "react-awesome-reveal";
 import CommentLoading from "../Comment/CommentLoading";
 import getRandomNumber from "../../utils/getRandomNumber";
@@ -19,44 +18,13 @@ import Avatar from "react-avatar";
 import styles from "./Post.module.css";
 import { setUpsVotes } from "../../store/redditSlice";
 import { useDispatch } from "react-redux";
+import addImagesFromJson from "../../utils/addImagesFromJson";
 
 function Post(props) {
   const [voteValue, setVoteValue] = useState(0);
   const { post, onToggleComments, index } = props;
   const dispatch = useDispatch();
-  const images = []
-
-  if (post.url.includes("jpg") || post.url.includes("jpeg")) {
-    images.push(post.url)
-  }
-
-
-
-  if (post.media_metadata) {
-    const metadataImages = post.media_metadata;
-    if (metadataImages) {
-      for (const i in metadataImages) {
-        const imageUrl = metadataImages[i].p.find((image) => image.x === 640);
-        if (imageUrl) {
-          images.push(imageUrl.u);
-        }
-      }
-    }
-  }
-
-  if (post.preview) {
-    const previewImages = post.preview.images[1];
-    if (previewImages) {
-      for (const i in previewImages) {
-        const imageUrl = previewImages[i].p.find((image) => image.x === 640);
-        if (imageUrl) {
-          images.push(imageUrl.u);
-        }
-      }
-    }
-  }
-
-  // console.log(index, images);
+  const images = addImagesFromJson(post); 
 
   const onHandleVote = (newValue, index) => {
     let up;
@@ -177,6 +145,7 @@ function Post(props) {
 
           <div className={styles.postContainer}>
             <p className={styles.postTitle}>{post.title}</p>
+            
             {images.length ? (
               <div className={styles.postImageContainer}>
                 {
@@ -191,12 +160,13 @@ function Post(props) {
 
             <div className={styles.postDetails}>
               <span className={styles.authorUsername}>
+              <div className={styles.iconUserName}> 
                 <Avatar
                   name={post.author}
                   className={styles.avatarProfileImage}
-                />
-                {/* <img src={avatar} alt="avatar" className={styles.avatar} /> */}
+                />                
                 {post.author}&nbsp;&nbsp;
+                </div>
                 <span className={styles.dateOfPost}>
                   &#x2022;&nbsp;
                   {formatDistanceToNow(new Date(post.created_utc * 1000), {
