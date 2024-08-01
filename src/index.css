@@ -27,10 +27,14 @@ main {
 
 a {
   color: var(--color-text-link);
+  white-space: pre-wrap; /* CSS3 */    
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */    
+  white-space: -o-pre-wrap; /* Opera 7 */    
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 header {
-  width: 100%;
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -39,7 +43,7 @@ header {
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
   #root {
     grid-template-columns: 1fr;
   }
@@ -53,3 +57,5 @@ header {
     padding: 1rem;
   }
 }
+
+

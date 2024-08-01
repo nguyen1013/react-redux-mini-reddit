@@ -1,12 +1,8 @@
-// Example usage:
-// console.log(formatSubredditName('/r/AskReddit/')); // Output: "Ask Reddit"
-
+// These function is to split reddit name to readable name for Avatar component displaying
 
 function splitName(input) {
-  // Step 1: Extract text after '/r/'
   const match = input.match(/\/r\/(.+)/);
   if (!match) return null; // Return null if no match found
-  // Step 2: Split by uppercase characters and join with space
   const subredditName = match[1]
     .split(/(?=[A-Z])/)
     .join(' ')
@@ -15,15 +11,13 @@ function splitName(input) {
   return subredditName;
 }
 export default splitName;
-
+// console.log(formatSubredditName('/r/AskReddit/')); // Output: "Ask Reddit"
 
 
 export function splitUserName(input) {
-
-  const parts = input.split(/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/);
-  
-  // Join the parts with spaces, trim any extra whitespace, and convert to lowercase
+  const parts = input.split(/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/);  
   return parts.join(' ').trim();
 }
+// console.log(formatSubredditName('AskReddit')); // Output: "Ask Reddit"
 
 

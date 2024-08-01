@@ -2,11 +2,6 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import stylesPostLoading from "./PostLoading.module.css";
 import stylesPost from "./Post.module.css";
-// import {
-//   TiArrowUpOutline,
-//   TiArrowDownOutline,
-//   TiMessage,
-// } from "react-icons/ti";
 import getRandomNumber from "../../utils/getRandomNumber";
 
 function PostLoading() {
@@ -18,7 +13,6 @@ function PostLoading() {
           className={`${stylesPost.iconActionButton} ${stylesPost.upVote}`}
           aria-label="Up vote"
         >
-          {/* <TiArrowUpOutline className={stylesPost.iconAction} /> */}
         </button>
         <Skeleton
           className={`${stylesPost.postVotesValue} ${stylesPostLoading.postVotesValueLoading}`}
@@ -28,7 +22,6 @@ function PostLoading() {
           className={`${stylesPost.iconActionButton} ${stylesPost.downVote}`}
           aria-label="Down vote"
         >
-          {/* <TiArrowDownOutline className={stylesPost.iconAction} /> */}
         </button>
       </div>
 
@@ -54,7 +47,6 @@ function PostLoading() {
               className={`${stylesPost.iconActionButton}`}
               aria-label="Show comments"
             >
-              {/* <TiMessage className={stylesPost.iconAction} /> */}
             </button>
             <Skeleton width={getRandomNumber(10, 50)} />
           </span>

@@ -6,10 +6,10 @@ import Subreddits from "./features/Subreddits/Subreddits";
 
 
 function App() {
-  const [isAsideVisible, setIsAsideVisible] = useState(window.innerWidth > 700);
+  const [isAsideVisible, setIsAsideVisible] = useState(window.innerWidth > 1000);
   useEffect(() => {
     const handleResize = () => {
-      setIsAsideVisible(window.innerWidth > 700);
+      setIsAsideVisible(window.innerWidth > 1000);
     };
 
     window.addEventListener('resize', handleResize);
