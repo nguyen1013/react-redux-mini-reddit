@@ -8,9 +8,11 @@ export default function addImagesFromJson(post) {
     const metadataImages = post.media_metadata;
     if (metadataImages) {
       for (const i in metadataImages) {
-        const imageUrl = metadataImages[i].p.find((image) => image.x === 640);
-        if (imageUrl) {
-          images.push(imageUrl.u);
+        if (i.e === 'Image') {
+          const imageUrl = metadataImages[i].p.find((image) => image.x === 640);
+          if (imageUrl) {
+            images.push(imageUrl.u);
+          }
         }
       }
     }
